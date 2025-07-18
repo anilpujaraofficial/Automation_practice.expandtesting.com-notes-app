@@ -15,7 +15,8 @@
     "cy:generate:report": "npx marge cypress/utils/reports/mochareports/report.json  -o cypress/utils/reports/mochareports",
     "cy:cloud:io": "npx cypress run --record --key da6877e1-a5c8-457b-a189-2a9b4c478e49 --parallel --group regression_testing --ci-build-id $BUILD_IDS",
     "cy:flow:test": "npx cypress run --env grepTags=@flowTest",
-    "posttest": "npm run cy:combine:report && npm run cy:generate:report"
+    "posttest": "npm run cy:combine:report && npm run cy:generate:report",
+    "prepare": "husky"
   },
   "dependencies": {
     "cypress": "^14.5.2"

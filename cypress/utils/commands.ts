@@ -106,7 +106,6 @@ export class Commands {
   }
 
   ClickActions(value) {
-    cy.dataCy("Action").click().wait(500);
     cy.get(".ant-dropdown-menu-title-content")
       .and("exist")
       .contains(value)

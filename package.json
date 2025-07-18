@@ -3,10 +3,32 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "cy:node": "node -v",
+    "cy:verify": "npx cypress verify",
+    "start": "yarn && npx cypress open --browser electron",
+    "cy:run": "yarn && npx cypress open",
+    "cy:clean:saveData": "rm -rf cypress/fixtures/testdata",
+    "cy:clean:report": "rm -rf cypress/utils/reports && mkdir cypress/utils/reports && mkdir cypress/utils/reports/mochareports && rm -rf cypress/screenshots && rm -rf cypress/videos",
+    "pretest": "npm run cy:clean:saveData && npm run cy:clean:report",
+    "cy:combine:report": "npx mochawesome-merge cypress/utils/reports/mocha/*.json -o cypress/utils/reports/mochareports/report.json",
+    "cy:generate:report": "npx marge cypress/utils/reports/mochareports/report.json  -o cypress/utils/reports/mochareports",
+    "cy:cloud:io": "npx cypress run --record --key da6877e1-a5c8-457b-a189-2a9b4c478e49 --parallel --group regression_testing --ci-build-id $BUILD_IDS",
+    "cy:flow:test": "npx cypress run --env grepTags=@flowTest",
+    "posttest": "npm run cy:combine:report && npm run cy:generate:report"
+  },
   "dependencies": {
     "cypress": "^14.5.2"
   },
   "devDependencies": {
-    "typescript": "^5.8.3"
+    "@cypress/grep": "^4.0.0",
+    "@faker-js/faker": "^8.0.2",
+    "cypress-file-upload": "^5.0.8",
+    "husky": "^9.0.11",
+    "dotenv": "^17.2.0",
+    "typescript": "^5.8.3",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.3.0",
+    "mochawesome-report-generator": "^6.2.0"
   }
 }

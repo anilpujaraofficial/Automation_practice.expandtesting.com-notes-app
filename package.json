@@ -1,0 +1,12 @@
+{
+  "name": "grepsr_assessment",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "cypress": "^14.5.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}

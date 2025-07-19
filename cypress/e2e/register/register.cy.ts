@@ -5,7 +5,10 @@ import { filePath } from "../../utils/filepath/filepath";
 let command = new Commands();
 let registerObj = new RegisterPageObj();
 let jsonfilepath = filePath;
-describe("Register Module",{tags:["@register","@regression"]}, () => {
+describe("Register Module", { tags: ["@register", "@regression"] }, () => {
+  before(() => {
+    Cypress.session.clearCurrentSessionData();
+  });
   beforeEach(() => {
     command.visit(getEnvVariables("base_url"));
   });

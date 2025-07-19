@@ -1,13 +1,18 @@
 import { NotesObj } from "../../pagesObj/notesObj";
+import { getEnvVariables } from "../../support/commands";
 import { filePath } from "../../utils/filepath/filepath";
 
 let notesObj = new NotesObj();
 let jsonfilePath = filePath;
 describe("Notes Module", { tags: ["@notes", "@regression"] }, () => {
+  before(() => {
+    Cypress.session.clearCurrentSessionData();
+  });
   beforeEach(() => {
     cy.login();
+    cy.visit(getEnvVariables("base_url"));
   });
-  it("Create", () => {
+  it("Create", { tags: ["@smoke"] }, () => {
     notesObj.create(filePath.note);
   });
   it("Search", () => {

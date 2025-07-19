@@ -52,8 +52,8 @@ export default defineConfig({
       qa: {
         base_url: process.env.BASE_URL,
         api_url: null,
-        username: null,
-        password: null,
+        username: process.env.EMAIL,
+        password: process.env.PASSWORD,
       },
       dev: {
         base_url: process.env.BASE_URL,

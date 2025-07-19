@@ -5,13 +5,14 @@ import { filePath } from "../../utils/filepath/filepath";
 let filepath = filePath;
 let loginObj = new LoginPageObj();
 let command = new Commands();
-describe("Login Module",{tags:["@login","@regression"]}, () => {
+describe("Login Module", { tags: ["@login", "@regression"] }, () => {
+  before(() => {
+    Cypress.session.clearCurrentSessionData();
+  });
   beforeEach(() => {
     command.visit(getEnvVariables("base_url"));
   });
-  it("valid Login", { tags: ["@smoke"] }, () => {
-    loginObj.validLogin(filePath.register);
-  });
+
   it("invalid Login", () => {
     loginObj.invalidLogin(filePath.register);
   });
@@ -20,5 +21,8 @@ describe("Login Module",{tags:["@login","@regression"]}, () => {
   });
   it("To verify that the system correctly accepts or rejects passwords based on the minimum and maximum character length limits", () => {
     loginObj.passwordLengthValidation(filePath.register);
+  });
+  it("valid Login", { tags: ["@smoke"] }, () => {
+    loginObj.validLogin(filePath.register);
   });
 });

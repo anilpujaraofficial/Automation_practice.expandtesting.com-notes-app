@@ -1,21 +1,34 @@
 import { defineConfig } from "cypress";
 require("dotenv/config");
+const fs = require("fs");
 export default defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
       // implement node event listeners here
+      on("task", {
+        checkFileExists(filepath: string) {
+          if (fs.existsSync(filepath)) {
+            return true;
+          } else {
+            return false;
+          }
+        },
+      });
+      require("@cypress/grep/src/plugin")(config);
+      return config;
     },
-
+    testIsolation: false,
     experimentalStudio: true,
     viewportWidth: 1440,
     viewportHeight: 900,
+    numTestsKeptInMemory: 0,
     chromeWebSecurity: false,
     retries: {
       runMode: 2,
       openMode: 0,
     },
     //Report define
-    reporter: "mochawesom",
+    reporter: "mochawesome",
     reporterOptions: {
       reportDir: "cypress/utils/reports/mocha",
       reportFilename: "[status]-[name]-report",

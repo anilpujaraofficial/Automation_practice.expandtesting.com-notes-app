@@ -1,37 +1,49 @@
 /// <reference types="cypress" />
-// ***********************************************
-// This example commands.ts shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+
+import { loginXpathAssertions } from "../pages/login";
+import { Commands } from "../utils/commands";
+import { filePath } from "../utils/filepath/filepath";
+
+let xpath = new loginXpathAssertions();
+let jsonfilePath = filePath;
+let commands = new Commands();
+/**
+ *
+ * @param value
+ * @returns
+ */
+export function getEnvVariables(value) {
+  return Cypress.env(Cypress.env("testEnv"))[value];
+}
+
+Cypress.Commands.add("login", () => {
+  cy.session("login", () => {
+    cy.visit(getEnvVariables("base_url"));
+    commands.clickWithContain(xpath.button("open-login-view"), "Login");
+    commands.verifyUrl("/login");
+    cy.readFile(jsonfilePath.register).then((data) => {
+      for (const key in data) {
+        if (key == "email" || key == "password") {
+          commands.inputField(xpath.form(key), data[key].value);
+        }
+      }
+      commands.clickButton(xpath.button("login-submit"));
+      cy.wait(6000);
+    });
+    cy.visit(getEnvVariables("base_url"));
+    cy.url().should("include", getEnvVariables("base_url"));
+  });
+});
+
+// cypress/support/index.ts
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      /**
+       * Custom command to select DOM element by data-cy attribute.
+       * @example cy.dataCy('greeting')
+       */
+      login(): Chainable<JQuery<HTMLElement>>;
+    }
+  }
+}

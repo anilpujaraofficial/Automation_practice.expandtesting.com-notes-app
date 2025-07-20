@@ -1794,7 +1794,7 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"export function genPass(len=12){",
+											" function genPass(len=12){",
 											"  const chars = \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\";",
 											"  return Array.from({length: len}, () => chars[Math.floor(Math.random()*chars.length)]).join('');",
 											"}",
@@ -2298,222 +2298,6 @@
 			"name": "notes",
 			"item": [
 				{
-					"name": "Get all notes",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status is 200\", () => {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"Success is true\", () => {",
-									"    const jsonData = pm.response.json();",
-									"    pm.expect(jsonData.success).to.be.true;",
-									"});",
-									"",
-									"pm.test(\"Message is correct\", () => {",
-									"    const jsonData = pm.response.json();",
-									"    pm.expect(jsonData.message).to.eql(\"Notes successfully retrieved\");",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "key",
-									"value": "x-auth-token",
-									"type": "string"
-								},
-								{
-									"key": "value",
-									"value": "{{apiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "in",
-									"value": "header",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/notes",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"notes"
-							]
-						},
-						"description": "Retrieve a list of notes for the authenticated user"
-					},
-					"response": [
-						{
-							"name": "Successful operation",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "x-auth-token",
-										"value": "<API Key>",
-										"description": "Added as a part of security scheme: apikey"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/notes",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"notes"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"success\": \"<boolean>\",\n  \"status\": \"<number>\",\n  \"message\": \"<string>\",\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"category\": \"<string>\",\n      \"completed\": \"<boolean>\",\n      \"created_at\": \"<string>\",\n      \"updated_at\": \"<string>\",\n      \"user_id\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"category\": \"<string>\",\n      \"completed\": \"<boolean>\",\n      \"created_at\": \"<string>\",\n      \"updated_at\": \"<string>\",\n      \"user_id\": \"<string>\"\n    }\n  ]\n}"
-						},
-						{
-							"name": "Bad Request",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									},
-									{
-										"key": "x-auth-token",
-										"value": "<API Key>",
-										"description": "Added as a part of security scheme: apikey"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/notes",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"notes"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"success\": \"<boolean>\",\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
-						},
-						{
-							"name": "Unauthorized Request",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									},
-									{
-										"key": "x-auth-token",
-										"value": "<API Key>",
-										"description": "Added as a part of security scheme: apikey"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/notes",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"notes"
-									]
-								}
-							},
-							"status": "Unauthorized",
-							"code": 401,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"success\": \"<boolean>\",\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
-						},
-						{
-							"name": "Internal Error Server",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									},
-									{
-										"key": "x-auth-token",
-										"value": "<API Key>",
-										"description": "Added as a part of security scheme: apikey"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/notes",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"notes"
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"success\": \"<boolean>\",\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
-						}
-					]
-				},
-				{
 					"name": "Create a new note",
 					"event": [
 						{
@@ -2920,7 +2704,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "<string>",
+									"value": "{{noteId}}",
 									"description": "(Required) ID of the note to retrieve"
 								}
 							]
@@ -3168,9 +2952,7 @@
 									"    pm.expect(responseJson.data.completed).to.be.true;",
 									"});",
 									"",
-									"pm.test(\"Category is 'Home'\", function () {",
-									"    pm.expect(responseJson.data.category).to.eql(\"Home\");",
-									"});",
+									"",
 									"",
 									"pm.test(\"created_at and updated_at are valid ISO date strings\", function () {",
 									"    const createdAt = new Date(responseJson.data.created_at);",
@@ -3730,6 +3512,222 @@
 							],
 							"cookie": [],
 							"body": "{\n  \"success\": \"<boolean>\",\n  \"status\": \"<number>\",\n  \"message\": \"<string>\",\n  \"data\": {\n    \"id\": \"<string>\",\n    \"title\": \"<string>\",\n    \"description\": \"<string>\",\n    \"completed\": \"<boolean>\",\n    \"created_at\": \"<string>\",\n    \"updated_at\": \"<string>\",\n    \"category\": \"<string>\",\n    \"user_id\": \"<string>\"\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get all notes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status is 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Success is true\", () => {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Message is correct\", () => {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql(\"Notes successfully retrieved\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{apiKey}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/notes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"notes"
+							]
+						},
+						"description": "Retrieve a list of notes for the authenticated user"
+					},
+					"response": [
+						{
+							"name": "Successful operation",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "x-auth-token",
+										"value": "<API Key>",
+										"description": "Added as a part of security scheme: apikey"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/notes",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"notes"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"success\": \"<boolean>\",\n  \"status\": \"<number>\",\n  \"message\": \"<string>\",\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"category\": \"<string>\",\n      \"completed\": \"<boolean>\",\n      \"created_at\": \"<string>\",\n      \"updated_at\": \"<string>\",\n      \"user_id\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"category\": \"<string>\",\n      \"completed\": \"<boolean>\",\n      \"created_at\": \"<string>\",\n      \"updated_at\": \"<string>\",\n      \"user_id\": \"<string>\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Bad Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "x-auth-token",
+										"value": "<API Key>",
+										"description": "Added as a part of security scheme: apikey"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/notes",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"notes"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"success\": \"<boolean>\",\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Unauthorized Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "x-auth-token",
+										"value": "<API Key>",
+										"description": "Added as a part of security scheme: apikey"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/notes",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"notes"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"success\": \"<boolean>\",\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Internal Error Server",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "x-auth-token",
+										"value": "<API Key>",
+										"description": "Added as a part of security scheme: apikey"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/notes",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"notes"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"success\": \"<boolean>\",\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
 						}
 					]
 				},

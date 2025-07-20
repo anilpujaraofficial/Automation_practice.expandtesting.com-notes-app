@@ -35,6 +35,24 @@ Cypress.Commands.add("login", () => {
   });
 });
 
+Cypress.Commands.add("rmDir", (dirPath) => {
+  cy.task("checkFileExists", dirPath).then((data) => {
+    if (data) {
+      cy.task("removeDirectory", dirPath);
+      cy.clearAllCookies();
+      cy.clearAllSessionStorage();
+      cy.clearLocalStorage();
+      Cypress.session.clearAllSavedSessions();
+    } else {
+      cy.log("directory not found");
+      cy.clearAllCookies();
+      cy.clearAllSessionStorage();
+      cy.clearLocalStorage();
+      Cypress.session.clearAllSavedSessions();
+    }
+  });
+});
+
 // cypress/support/index.ts
 declare global {
   namespace Cypress {
@@ -44,6 +62,7 @@ declare global {
        * @example cy.dataCy('greeting')
        */
       login(): Chainable<JQuery<HTMLElement>>;
+      rmDir(value: any): Chainable<JQuery<HTMLElement>>;
     }
   }
 }

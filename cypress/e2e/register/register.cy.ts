@@ -7,7 +7,7 @@ let registerObj = new RegisterPageObj();
 let jsonfilepath = filePath;
 describe("Register Module", { tags: ["@register", "@regression"] }, () => {
   before(() => {
-    Cypress.session.clearCurrentSessionData();
+    cy.rmDir(jsonfilepath.register);
   });
   beforeEach(() => {
     command.visit(getEnvVariables("base_url"));

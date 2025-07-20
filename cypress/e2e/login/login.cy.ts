@@ -6,9 +6,6 @@ let filepath = filePath;
 let loginObj = new LoginPageObj();
 let command = new Commands();
 describe("Login Module", { tags: ["@login", "@regression"] }, () => {
-  before(() => {
-    Cypress.session.clearCurrentSessionData();
-  });
   beforeEach(() => {
     command.visit(getEnvVariables("base_url"));
   });

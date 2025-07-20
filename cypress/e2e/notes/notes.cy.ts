@@ -6,7 +6,7 @@ let notesObj = new NotesObj();
 let jsonfilePath = filePath;
 describe("Notes Module", { tags: ["@notes", "@regression"] }, () => {
   before(() => {
-    Cypress.session.clearCurrentSessionData();
+    cy.rmDir(jsonfilePath.note);
   });
   beforeEach(() => {
     cy.login();

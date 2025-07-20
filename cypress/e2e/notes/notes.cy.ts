@@ -6,7 +6,7 @@ let notesObj = new NotesObj();
 let jsonfilePath = filePath;
 describe("Notes Module", { tags: ["@notes", "@regression"] }, () => {
   before(() => {
-    cy.rmDir(jsonfilePath.note);
+    cy.rmDir(jsonfilePath.note_dir);
   });
   beforeEach(() => {
     cy.login();

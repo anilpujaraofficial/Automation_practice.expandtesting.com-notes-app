@@ -7,7 +7,7 @@ let registerObj = new RegisterPageObj();
 let jsonfilepath = filePath;
 describe("Register Module", { tags: ["@register", "@regression"] }, () => {
   before(() => {
-    cy.rmDir(jsonfilepath.register);
+    cy.rmDir(jsonfilepath.register_dir);
   });
   beforeEach(() => {
     command.visit(getEnvVariables("base_url"));

@@ -1,7 +1,9 @@
 export let filePath = {
+  //register
+  register_dir: "cypress/fixtures/testdata/register/",
   register: "cypress/fixtures/testdata/register/register.json",
-  note: "cypress/fixtures/testdata/note/note.json",
 
-  //default
-  login: "cypress/fixtures/login.json",
+  //notes
+  note_dir: "cypress/fixtures/testdata/notes/",
+  note: "cypress/fixtures/testdata/notes/notes.json",
 };

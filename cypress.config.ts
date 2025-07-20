@@ -17,7 +17,7 @@ export default defineConfig({
       on("task", {
         removeDirectory(fileDir: string) {
           return new Promise((resolve, reject) => {
-            fs.rm(fileDir, { recursive: true }, (err: boolean) => {
+            fs.rmdir(fileDir, { recursive: true }, (err: boolean) => {
               if (err) {
                 return reject(err);
               }

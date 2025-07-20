@@ -1,3 +1,5 @@
 node_modules
 cypress/fixtures/testdata
 cypress/utils/reports
+cypress/screenshots
+yarn.lock

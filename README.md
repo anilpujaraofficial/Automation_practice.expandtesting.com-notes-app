@@ -22,4 +22,9 @@ yarn install
 
 yarn start
 
+# Image
+<img width="502" height="634" alt="image" src="https://github.com/user-attachments/assets/460fd999-9b83-461f-b18e-a0e76fb6c895" />
+
+
+
 
